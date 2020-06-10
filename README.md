@@ -42,3 +42,5 @@ label = %output%
 label-padding = 1
 interval = 1
 ```
+
+It is better to change the path to the script to `~/.config/polybar/scripts/polybar-windows.awk` (and move it there)
