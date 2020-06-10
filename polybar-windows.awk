@@ -69,4 +69,6 @@ BEGIN {
 
 		}
 	} close(cmd)
+	
+	printf "\n"
 }
