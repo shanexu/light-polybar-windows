@@ -7,12 +7,11 @@
 
 AWKA := awka
 CC := gcc
-C_FLAGS := -Wall -march=native -O3 -DNDEBUG -s
+C_FLAGS := -Wall -march=native -O3 -DNDEBUG -s -pipe
 C_LIBS := -lawka
 
 all: polybar-windows
 
 polybar-windows: polybar-windows.awk
-	$(AWKA) -f polybar-windows.awk > polybar-windows.c
-	$(CC) $(C_FLAGS) -o polybar-windows polybar-windows.c -lawka
-
+	$(AWKA) -f polybar-windows.awk | \
+	$(CC) $(C_FLAGS) -o polybar-windows -xc - -lawka
