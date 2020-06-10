@@ -17,6 +17,7 @@ Decorated version:
 I suggest installing [awka](https://github.com/noyesno/awka) to compile the awk script for ~30% speedup, [here](Makefile) is a makefile to facilitate the process.
 
 Just install awka,  use `make` and then change `polybar-windows.awk` to `polybar-windows` in the .ini file.
+- You need to have `libawka.so` in your path or you can add `LD_LIBRARY_PATH=/usr/local/lib` just before the path to the script if you don't.
 
 ## Dependencies
 
