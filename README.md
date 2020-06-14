@@ -1,11 +1,9 @@
 # Script: light-polybar-windows
 
-A [Polybar](https://github.com/jaagr/polybar) script forked from the original [polybar-windows](https://github.com/aroma1994/polybar-windows) that shows opened and minimized windows on your current display (if there's an active window it's underlined in the **default decorated version** or marked by **#** in the simple version). 
+A [Polybar](https://github.com/jaagr/polybar) script from [polybar-windows](https://github.com/aroma1994/polybar-windows) repository that shows opened and minimized windows on your current display (if there's an active window it's underlined in the **default decorated version** or marked by **#** in the simple version). 
 
 - *Left-click* on any window title to **activate** that window (expands minimized) or to **minimize** it if it is already active.
 - *Right-click* on a title to **close** the corresponding window.
-
-This fork makes the script update the plugin only when something happens, this reduces both the processing power consumption and the amount of processes being run over time.
 
 ## Screenshots
 
