@@ -41,8 +41,8 @@ function update_list()
 			sub(/\..+/, "", $3)
 
 			if (length($3) > max_title) {
-				$3 = substr($3, 1, max_title)".."
-				total_length += max_title + 2
+				$3 = substr($3, 1, max_title)"…"
+				total_length += max_title + 1
 			} else {
 				total_length += length($3)
 			}
