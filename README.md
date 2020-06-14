@@ -1,8 +1,13 @@
-# Script: fast-polybar-windows
+# Script: light-polybar-windows
 
-A [Polybar](https://github.com/jaagr/polybar) script forked from the original [polybar-windows](https://github.com/aroma1994/polybar-windows) that shows opened and minimized windows on your current display (if there's an active window it's marked by #). You can click on any window title to switch on that window (or expand minimized window), and click on an active window to minimize it.
+A [Polybar](https://github.com/jaagr/polybar) script forked from the original [polybar-windows](https://github.com/aroma1994/polybar-windows) that shows opened and minimized windows on your current display (if there's an active window it's underlined in the **default decorated version** or marked by **#** in the simple version). 
 
-This version changes the .sh file to a compilable .awk file (in the .awk form it is already significantly sped up)
+- *Left-click* on any window title to **activate** that window (expands minimized) or to **minimize** it if it is already active.
+- *Right-click* on a title to **close** the corresponding window.
+
+This fork makes the script update the plugin only when something happens, this reduces both the processing power consumption and the amount of processes being run over time.
+
+## Screenshots
 
 Simple version:
 
@@ -12,36 +17,24 @@ Decorated version:
 
 ![polybar-windows](screenshots/polybar-windows-decorated.png)
 
-### If you really want speed:
-
-I suggest installing [awka](https://github.com/noyesno/awka) to compile the awk script for ~30% speedup, [here](Makefile) is a makefile to facilitate the process.
-
-Just install awka,  use `make` and then change `polybar-windows.awk` to `polybar-windows` in the .ini file.
-- You need to have `libawka.so` in your library path or you can add `LD_LIBRARY_PATH=/usr/local/lib` just before the path to the script if you don't.
-
 ## Dependencies
 
 * `xprop`
 * `wmctrl`
 
-### Optional dependencies
-
-* `awka`
-
 ## Configuration
 
-Comment 'Decorated version' block and uncomment 'Simple version' block to switch on simple version.
+You can easily customize the plugin by adjusting parameters in  [polybar-windows.awk](polybar-windows.awk)
+
+Comment 'Decorated version' block and uncomment 'Simple version' block to easily switch on the simple version.
 
 ## Module
 
 ```ini
 [module/polybar-windows]
 type = custom/script
-exec = polybar-windows.awk
-format = <label>
-label = %output%
-label-padding = 1
-interval = 1
+exec = polybar-windows.sh
+tail = true
 ```
 
-It is better to change the path to the script to `~/.config/polybar/scripts/polybar-windows.awk` (and move it there)
+It is better to change the paths to the scripts to `~/.config/polybar/scripts/polybar.windows.sh` and  `~/.config/polybar/scripts/polybar.windows.awk` (and to move them over there).
