@@ -18,6 +18,8 @@ BEGIN {
 		inactive_right="%{-u}"inactive_right
 	}
 
+	split(ignore_windows, ignored, ":")
+
 	cmd = "wmctrl -lx"
 }
 
@@ -27,8 +29,19 @@ function update_windows()
 	hidden_windows = 0
 
 	while (cmd | getline) {
-		if ($2 != active_workspace || $2 == "-1") { continue }
-		if ($3 ~ "polybar" || $3 ~ "yad") { continue }
+		if ($2 != active_workspace && $2 != "-1") { continue }
+
+		is_ignored = 0
+		for (window in ignored) {
+			if ($3 ~ ignored[window]) {
+				is_ignored = 1
+				break
+			}
+		}
+
+		if (is_ignored) {
+			continue
+		}
 
 		if (window_count != 0) {
 			# only on non-first items
@@ -42,7 +55,7 @@ function update_windows()
 			do ++hidden_windows
 			while (cmd | getline)
 
-			printf "%s", "+" hidden_windows
+			printf "+%s", hidden_windows
 			break
 		}
 
@@ -60,29 +73,24 @@ function update_windows()
 
 			for (i = 5; i <= NF; i++) {
 				title = title $i
-				if (i != NF) { title = title " "}
+				if (i != NF) title = title " "
 			}
 
 			displayed_name = title
 		}
 
-		if      (char_case == "lower") { displayed_name = tolower(displayed_name) }
-		else if (char_case == "upper") { displayed_name = toupper(displayed_name) }
+		if (char_case == "lower")
+			displayed_name = tolower(displayed_name)
+		else if (char_case == "upper")
+			displayed_name = toupper(displayed_name)
 
-		if (length(displayed_name) > char_limit) {
-			displayed_name = substr(displayed_name,1,char_limit)"…"
-		}
+		if (length(displayed_name) > char_limit)
+			displayed_name = substr(displayed_name, 1, char_limit)"…"
 
-		if ($1 == active_window) {
+		if ($1 == active_window)
 			displayed_name=active_left displayed_name active_right
-			
-			if (active_underline == "true") {
-
-			}
-		}
-		else {
+		else
 			displayed_name=inactive_left displayed_name inactive_right
-		}
 
 		printf "%s%s%s%s%s%s%s",
 			"%{A1:"on_click" raise_or_minimize "$1" "active_window":}",

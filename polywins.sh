@@ -17,6 +17,7 @@ char_case="normal" # options: normal, upper, lower
 add_spaces="true"
 resize_increment=30
 wm_border_width=0 # setting this might be required for accurate resize position
+ignore_windows="polybar:yad" # :-separated list of windows we want to ignore (bars, desktop managers, etc.)
 
 # --- }}}
 
@@ -67,4 +68,5 @@ xprop -root -notype -spy _NET_ACTIVE_WINDOW _NET_CURRENT_DESKTOP _NET_CLIENT_LIS
 	-v char_limit="$char_limit" \
 	-v add_spaces="$add_spaces" \
 	-v on_click="$0" \
-	-v max_windows="$max_windows"
+	-v max_windows="$max_windows" \
+	-v ignore_windows="$ignore_windows"
