@@ -32,14 +32,17 @@ function update_windows()
 
 		if (window_count != 0) {
 			# only on non-first items
-			printf "%s", separator
+			if (add_spaces == "true")
+				printf " %s ", separator
+			else
+				printf "%s", separator
 		}
 
 		if (window_count >= max_windows) {
 			do ++hidden_windows
 			while (cmd | getline)
 
-			printf "%s", separator " +" hidden_windows
+			printf "%s", "+" hidden_windows
 			break
 		}
 
@@ -69,8 +72,6 @@ function update_windows()
 		if (length(displayed_name) > char_limit) {
 			displayed_name = substr(displayed_name,1,char_limit)"…"
 		}
-
-		if (add_spaces == "true") { displayed_name = " "displayed_name" " }
 
 		if ($1 == active_window) {
 			displayed_name=active_left displayed_name active_right
