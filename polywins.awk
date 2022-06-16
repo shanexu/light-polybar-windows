@@ -2,8 +2,8 @@
 
 BEGIN {
 	# Setup
-	active_left="%{F"active_text_color"}"
-	active_right="%{F-}"
+	active_left="%{B"active_background_color"}""%{F"active_text_color"}"
+	active_right="%{B- F-}"
 	inactive_left="%{F"inactive_text_color"}"
 	inactive_right="%{F-}"
 	separator="%{F"inactive_text_color"}"separator"%{F-}"
@@ -29,7 +29,7 @@ function update_windows()
 	hidden_windows = 0
 
 	while (cmd | getline) {
-		if ($2 != active_workspace && $2 != "-1") { continue }
+		# if ($2 != active_workspace && $2 != "-1") { continue }
 
 		is_ignored = 0
 		for (window in ignored) {
@@ -86,6 +86,8 @@ function update_windows()
 
 		if (length(displayed_name) > char_limit)
 			displayed_name = substr(displayed_name, 1, char_limit)"…"
+
+		displayed_name="["($2+1)%10"]"displayed_name
 
 		if ($1 == active_window)
 			displayed_name=active_left displayed_name active_right

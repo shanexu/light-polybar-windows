@@ -3,10 +3,12 @@
 
 # SETTINGS {{{ ---
 
-active_text_color="#250F0B"
+active_background_color="#f6373B41"
+active_text_color="#C5C8C6"
 active_underline="true"
-active_underline_color="#E7A09E"
-inactive_text_color="#250F0B"
+# active_underline_color="#E7A09E"
+active_underline_color="#F0C674"
+inactive_text_color="#707880"
 inactive_underline="false"
 inactive_underline_color="#F1EF7D"
 separator="·"
@@ -56,6 +58,7 @@ if [ -n "$2" ]; then exit; fi
 
 xprop -root -notype -spy _NET_ACTIVE_WINDOW _NET_CURRENT_DESKTOP _NET_CLIENT_LIST | \
 "${0%.*}.awk" \
+  -v active_background_color="$active_background_color" \
 	-v active_text_color="$active_text_color" \
 	-v active_underline_color="$active_underline_color" \
 	-v active_underline="$active_underline" \
