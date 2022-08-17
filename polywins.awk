@@ -87,7 +87,7 @@ function update_windows()
 		if (length(displayed_name) > char_limit)
 			displayed_name = substr(displayed_name, 1, char_limit)"…"
 
-		displayed_name="["($2+1)%10"]"displayed_name
+		displayed_name=" ["($2+1)%10"]"displayed_name" "
 
 		if ($1 == active_window)
 			displayed_name=active_left displayed_name active_right
