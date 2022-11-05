@@ -1,4 +1,5 @@
 #!/usr/bin/awk -f
+# -*- tab-width: 2; indent-tabs-mode: t; c-basic-offset: 2; -*-
 
 BEGIN {
 	# Setup
@@ -78,14 +79,29 @@ function update_windows()
 
 			displayed_name = title
 		}
+		if ($1 == active_window) {
+			title = $3": "
+			sub(/.+\./, "", title)
+
+			for (i = 5; i <= NF; i++) {
+				title = title $i
+				if (i != NF) title = title " "
+			}
+
+			displayed_name = title
+		}
 
 		if (char_case == "lower")
 			displayed_name = tolower(displayed_name)
 		else if (char_case == "upper")
 			displayed_name = toupper(displayed_name)
 
-		if (length(displayed_name) > char_limit)
-			displayed_name = substr(displayed_name, 1, char_limit)"…"
+		cl = char_limit
+		if ($1 == active_window) {
+			cl = cl + 20
+		}
+		if (length(displayed_name) > cl)
+			displayed_name = substr(displayed_name, 1, cl)"…"
 
 		displayed_name=" ["($2+1)%10"]"displayed_name" "
 
@@ -125,5 +141,9 @@ $1 == "_NET_ACTIVE_WINDOW:" && ($5 != "0x0") {
 }
 
 $1 == "_NET_CURRENT_DESKTOP:" {
+	update_windows()
+}
+
+$1 == "_NET_CLIENT_LIST:" {
 	update_windows()
 }
